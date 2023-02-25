@@ -2,16 +2,17 @@ using FSMs;
 using UnityEngine;
 using Steerings;
 
-[CreateAssetMenu(fileName = "Sheep_FSM", menuName = "Finite State Machines/Sheep_FSM", order = 1)]
-public class Sheep_FSM : FiniteStateMachine
+[CreateAssetMenu(fileName = "FSM_SHEEP", menuName = "Finite State Machines/FSM_SHEEP", order = 1)]
+public class FSM_SHEEP : FiniteStateMachine
 {
     /* Declare here, as attributes, all the variables that need to be shared among
      * states and transitions and/or set in OnEnter or used in OnExit 
      * For instance: steering behaviours, blackboard, ...*/
-     private Sheep_Blackboard sheepBlackboard;
-     private FlockingAround flockingAround;
-     private GameObject wolf;
-     private GameObject dog; 
+    private BLACKBOARD_SHEEP blackboardSheep;
+    private FlockingAround flockingAround;
+    private Flee flee;
+    private GameObject wolf;
+    private GameObject dog;
 
     public override void OnEnter()
     {
@@ -19,8 +20,10 @@ public class Sheep_FSM : FiniteStateMachine
          * It's equivalent to the on enter action of any state 
          * Usually this code includes .GetComponent<...> invocations */
 
-        sheepBlackboard = GetComponent<Sheep_Blackboard>();
+        blackboardSheep = GetComponent<BLACKBOARD_SHEEP>();
         flockingAround = GetComponent<FlockingAround>();
+        flee = GetComponent<Flee>();
+
         base.OnEnter(); // do not remove
     }
 
@@ -46,29 +49,25 @@ public class Sheep_FSM : FiniteStateMachine
             () => { }  // write on exit logic inisde {}  
         );
 
-         */
-
+        */
 
         State walkAround = new State("WalkAround",
-
             () => {
                 flockingAround.attractor = dog;
-                flockingAround.enabled = true;              
+                flockingAround.enabled = true;
             },
             () => { },
             () => { flockingAround.enabled = false; }
-
-            );
+        );
 
         State runAway = new State("RunAway",
-
             () => {
-                 
+                flee.target = wolf;
+                flee.enabled = true;
             },
             () => { },
-            () => {   }
-
-            );
+            () => { flee.enabled = false; }
+        );
 
         /* STAGE 2: create the transitions with their logic(s)
          * ---------------------------------------------------
@@ -80,6 +79,16 @@ public class Sheep_FSM : FiniteStateMachine
 
         */
 
+        Transition wolfNearby = new Transition("Wolf Nearby",
+            () => {
+                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF", blackboardSheep.wolfDetectionRadius);
+                return wolf != null;
+            }
+        );
+
+        Transition wolfFarAway = new Transition("Wolf Far Away",
+            () => { return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardSheep.wolfFarAwayRadius; }
+        );
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
@@ -88,14 +97,18 @@ public class Sheep_FSM : FiniteStateMachine
 
         AddTransition(sourceState, transition, destinationState);
 
-         */ 
+        */
 
+        AddStates(walkAround, runAway);
+        AddTransition(walkAround, wolfNearby, runAway);
+        AddTransition(runAway, wolfFarAway, walkAround);
 
         /* STAGE 4: set the initial state
          
         initialState = ... 
 
-         */
+        */
 
+        initialState = walkAround;
     }
 }

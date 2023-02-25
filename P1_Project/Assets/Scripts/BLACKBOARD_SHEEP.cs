@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sheep_Blackboard : MonoBehaviour
+public class BLACKBOARD_SHEEP : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float wolfDetectionRadius = 10f;
+    public float wolfFarAwayRadius = 50f;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
