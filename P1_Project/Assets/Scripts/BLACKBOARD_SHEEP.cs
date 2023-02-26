@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BLACKBOARD_SHEEP : MonoBehaviour
 {
-    public float dogDetectionRadius = 10f;
+    public float dogDetectionRadius = 30f;
     public float wolfDetectionRadius = 10f;
     public float wolfFarAwayRadius = 50f;
 

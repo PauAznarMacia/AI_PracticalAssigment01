@@ -30,6 +30,13 @@ public class FSM_SHEEP : FiniteStateMachine
     {
         // STAGE 1: create the states with their logic(s)
 
+        State LookingForDog = new State("LookingForDog",
+            () => {
+            },
+            () => { },
+            () => {   }
+        );
+
         State walkAround = new State("WalkAround",
             () => {
                 flockingAround.attractor = dog;
@@ -50,6 +57,15 @@ public class FSM_SHEEP : FiniteStateMachine
 
         // STAGE 2: create the transitions with their logic(s)
 
+
+        Transition dogNearby = new Transition("Dog Nearby",
+            () => {
+                dog = SensingUtils.FindInstanceWithinRadius(gameObject, "DOG", blackboardSheep.dogDetectionRadius);
+                return dog != null;
+            }
+        );
+
+
         Transition wolfNearby = new Transition("Wolf Nearby",
             () => {
                 wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF", blackboardSheep.wolfDetectionRadius);
@@ -57,9 +73,10 @@ public class FSM_SHEEP : FiniteStateMachine
             }
         );
 
+
         Transition wolfFarAway = new Transition("Wolf Far Away",
             () => {                                       
-                dog = SensingUtils.FindInstanceWithinRadius(gameObject, "DOG", blackboardSheep.dogDetectionRadius);
+                 
                 return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardSheep.wolfFarAwayRadius;
             }
         );
@@ -67,11 +84,15 @@ public class FSM_SHEEP : FiniteStateMachine
         // STAGE 3: add states and transitions to the FSM 
 
         AddStates(walkAround, runAway);
+        AddTransition(LookingForDog, dogNearby, walkAround);
         AddTransition(walkAround, wolfNearby, runAway);
         AddTransition(runAway, wolfFarAway, walkAround);
 
+
+        // initial state -> walk around | perro cerca
+
         // STAGE 4: set the initial state
 
-        initialState = walkAround;
+        initialState = LookingForDog;
     }
 }

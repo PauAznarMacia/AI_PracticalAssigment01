@@ -9,20 +9,21 @@ public class FSM_DOG : FiniteStateMachine
      * states and transitions and/or set in OnEnter or used in OnExit 
      * For instance: steering behaviours, blackboard, ...*/
     private BLACKBOARD_DOG blackboardDog;
-    private WanderAround wanderAround;
+    private WanderAroundPlusAvoid  wanderAround;
     private Arrive arrive;
     private GameObject wolf;
     private GameObject PowerUp;
+    private float chasingTime;
 
     public override void OnEnter()
     {
         /* Write here the FSM initialization code. This code is execute every time the FSM is entered.
          * It's equivalent to the on enter action of any state 
-         * Usually this code includes .GetComponent<...> invocations */ 
+         * Usually this code includes .GetComponent<...> invocations */
         blackboardDog = GetComponent<BLACKBOARD_DOG>();
-        wanderAround = GetComponent<WanderAround>();
+        wanderAround = GetComponent<WanderAroundPlusAvoid>();
         arrive = GetComponent<Arrive>();
-       
+
         base.OnEnter(); // do not remove
     }
 
@@ -56,20 +57,23 @@ public class FSM_DOG : FiniteStateMachine
         );
 
         State ReachingPowerUp = new State("Reaching_PowerUp",
-           () => {
+           () =>
+           {
                arrive.target = PowerUp;
-               arrive.enabled = true; },
+               arrive.enabled = true;
+           },
            () => { },
            () => { arrive.enabled = false; }
        );
 
         State ScaringWolf = new State("Scaring_Wolf",
 
-            () => {
+            () =>
+            {
                 arrive.target = wolf;
                 arrive.enabled = true;
             },
-           () => { },
+           () => { chasingTime += Time.deltaTime; },
            () => { arrive.enabled = false; }
 
             );
@@ -87,34 +91,36 @@ public class FSM_DOG : FiniteStateMachine
 
         */
         Transition PowerUpNear = new Transition("PowerUpNear",
-            () => {
-                PowerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "PowerUp", blackboardDog.powerUpDetectionRadius);
+            () =>
+            {
+                PowerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius);
                 return PowerUp != null;
             }
    );
 
-        Transition WolfNear = new Transition("WolfNear",
+        Transition GoToScaringWolf = new Transition("GoToScaringWolf",
             () =>
             {
-
-                return SensingUtils.DistanceToTarget(gameObject, wolf)> blackboardDog.wolfEscapeRadius;
+                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF", blackboardDog.wolfDetectionRadius);
+                return PowerUp && (SensingUtils.DistanceToTarget(gameObject, wolf) < blackboardDog.wolfDetectionRadius);
             }
 
             );
+
         Transition WolfScared = new Transition("WolfScared",
-            () =>
-            {
-                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "wolf", blackboardDog.wolfEscapeRadius);
-                return wolf != null;
-            }
+           () =>
+           {
 
-            );
+               return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardDog.wolfEscapeRadius;
+           }
+
+           );
 
         Transition ChasingTimeOver = new Transition("ChasingTimeOver",
            () =>
            {
-               wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "wolf", blackboardDog.wolfEscapeRadius);
-               return wolf != null;
+
+               return chasingTime > blackboardDog.maxChasingTime;
            }
 
            );
@@ -130,8 +136,10 @@ public class FSM_DOG : FiniteStateMachine
          */
         AddStates(Wandering, ReachingPowerUp, ScaringWolf);
         AddTransition(Wandering, PowerUpNear, ReachingPowerUp);
-        AddTransition(ReachingPowerUp, WolfNear, ScaringWolf);
-        AddTransition(ScaringWolf, ,Wandering,);
+        AddTransition(Wandering, GoToScaringWolf, ScaringWolf);
+        AddTransition(ScaringWolf, ChasingTimeOver, Wandering);
+        AddTransition(ScaringWolf, WolfScared, Wandering);
+
 
 
         /* STAGE 4: set the initial state
@@ -139,6 +147,7 @@ public class FSM_DOG : FiniteStateMachine
         initialState = ... 
 
          */
+        initialState = Wandering;
 
     }
 }
