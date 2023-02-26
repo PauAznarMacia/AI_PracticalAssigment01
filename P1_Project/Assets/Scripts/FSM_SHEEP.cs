@@ -50,13 +50,6 @@ public class FSM_SHEEP : FiniteStateMachine
 
         // STAGE 2: create the transitions with their logic(s)
 
-        Transition DogNearby = new Transition("Dog Nearby",
-            () => {
-                dog = SensingUtils.FindRandomInstanceWithinRadius(gameObject, "DOG", blackboardSheep.dogDetectionRadius);
-                return dog != null;
-            }
-        );
-
         Transition wolfNearby = new Transition("Wolf Nearby",
             () => {
                 wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF", blackboardSheep.wolfDetectionRadius);
@@ -65,7 +58,10 @@ public class FSM_SHEEP : FiniteStateMachine
         );
 
         Transition wolfFarAway = new Transition("Wolf Far Away",
-            () => { return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardSheep.wolfFarAwayRadius; }
+            () => {                                       
+                dog = SensingUtils.FindInstanceWithinRadius(gameObject, "DOG", blackboardSheep.dogDetectionRadius);
+                return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardSheep.wolfFarAwayRadius;
+            }
         );
 
         // STAGE 3: add states and transitions to the FSM 
