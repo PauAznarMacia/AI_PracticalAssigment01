@@ -5,6 +5,14 @@ using UnityEngine;
 public class BLACKBOARD_WOLF : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public float maxRestingTime = 8f;
+    public float maxHidingTime = 3f;
+    public float sheepDetectingRadius = 10f;
+    public float maxEatingTime = 0.3f;
+    public float eatingRadius = 2f;
+    public float digestionRadius = 3f;
+    
     void Start()
     {
         
