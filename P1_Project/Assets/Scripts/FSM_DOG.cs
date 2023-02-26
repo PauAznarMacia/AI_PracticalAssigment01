@@ -14,6 +14,7 @@ public class FSM_DOG : FiniteStateMachine
     private GameObject wolf;
     private GameObject PowerUp;
     private float chasingTime;
+    private float eatingTime;
 
     public override void OnEnter()
     {
@@ -61,9 +62,20 @@ public class FSM_DOG : FiniteStateMachine
            {
                arrive.target = PowerUp;
                arrive.enabled = true;
+          
            },
            () => { },
            () => { arrive.enabled = false; }
+       );
+
+        State EatingPowerUp = new State("Eating_PowerUp",
+           () =>
+           { 
+           },
+           () => { eatingTime += Time.deltaTime; },
+           () => { eatingTime = 0;
+                   PowerUp.SetActive(false);
+           }
        );
 
         State ScaringWolf = new State("Scaring_Wolf",
@@ -74,7 +86,9 @@ public class FSM_DOG : FiniteStateMachine
                 arrive.enabled = true;
             },
            () => { chasingTime += Time.deltaTime; },
-           () => { arrive.enabled = false; }
+           () => {
+               chasingTime = 0;
+               arrive.enabled = false; }
 
             );
 
@@ -93,8 +107,8 @@ public class FSM_DOG : FiniteStateMachine
         Transition PowerUpNear = new Transition("PowerUpNear",
             () =>
             {
-                PowerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius);
-                return PowerUp != null;
+                PowerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius); 
+                return PowerUp != null && (SensingUtils.DistanceToTarget(gameObject,PowerUp)< blackboardDog.powerUpDetectionRadius);
             }
    );
 
@@ -125,6 +139,24 @@ public class FSM_DOG : FiniteStateMachine
 
            );
 
+        Transition PowerUpReached = new Transition("PowerUpReached",
+        () =>
+        {
+
+            return SensingUtils.DistanceToTarget(gameObject, PowerUp) < blackboardDog.powerUpReachedRadius;
+        }
+
+        );
+
+
+        Transition EatingTimeOver = new Transition("EatingTimeOver",
+            () =>
+            {
+
+                return eatingTime > blackboardDog.maxEatingTime;
+            }
+
+            );
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
@@ -134,8 +166,10 @@ public class FSM_DOG : FiniteStateMachine
         AddTransition(sourceState, transition, destinationState);
 
          */
-        AddStates(Wandering, ReachingPowerUp, ScaringWolf);
+        AddStates(Wandering, ReachingPowerUp, EatingPowerUp, ScaringWolf);
         AddTransition(Wandering, PowerUpNear, ReachingPowerUp);
+        AddTransition(ReachingPowerUp, PowerUpReached , EatingPowerUp);
+        AddTransition(EatingPowerUp, EatingTimeOver, Wandering);
         AddTransition(Wandering, GoToScaringWolf, ScaringWolf);
         AddTransition(ScaringWolf, ChasingTimeOver, Wandering);
         AddTransition(ScaringWolf, WolfScared, Wandering);

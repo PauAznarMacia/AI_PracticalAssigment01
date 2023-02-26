@@ -6,16 +6,16 @@ using Steerings;
 public class FSM_SHEEP : FiniteStateMachine
 {
     private BLACKBOARD_SHEEP blackboardSheep;
-    private FlockingAround flockingAround;
-    private Flee flee;
+    private FlockingAroundPlusAvoidance flockingAround;
+    private FleePlusOA flee;
     private GameObject wolf;
     private GameObject dog;
 
     public override void OnEnter()
     {
         blackboardSheep = GetComponent<BLACKBOARD_SHEEP>();
-        flockingAround = GetComponent<FlockingAround>();
-        flee = GetComponent<Flee>();
+        flockingAround = GetComponent<FlockingAroundPlusAvoidance>();
+        flee = GetComponent<FleePlusOA>();
 
         base.OnEnter(); // do not remove
     }
@@ -31,15 +31,19 @@ public class FSM_SHEEP : FiniteStateMachine
         // STAGE 1: create the states with their logic(s)
 
         State LookingForDog = new State("LookingForDog",
-            () => {
-            },
             () => { },
-            () => {   }
+            () => { },
+            () => { }
         );
 
         State walkAround = new State("WalkAround",
             () => {
+                Debug.Log("holi2");
+              
                 flockingAround.attractor = dog;
+
+                Debug.Log(dog != null);
+
                 flockingAround.enabled = true;
             },
             () => { },
@@ -83,13 +87,10 @@ public class FSM_SHEEP : FiniteStateMachine
 
         // STAGE 3: add states and transitions to the FSM 
 
-        AddStates(walkAround, runAway);
+        AddStates(LookingForDog,walkAround, runAway);
         AddTransition(LookingForDog, dogNearby, walkAround);
         AddTransition(walkAround, wolfNearby, runAway);
         AddTransition(runAway, wolfFarAway, walkAround);
-
-
-        // initial state -> walk around | perro cerca
 
         // STAGE 4: set the initial state
 

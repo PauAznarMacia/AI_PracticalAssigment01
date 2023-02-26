@@ -9,9 +9,9 @@ public class BLACKBOARD_DOG : MonoBehaviour
     public float wolfDetectionRadius = 15f;
     public float wolfEscapeRadius = 18f;
     public float maxChasingTime = 5f;
-   
-
-
+    public float maxEatingTime = 3f;
+    public float powerUpReachedRadius = 0.2f;  
+ 
     void Start()
     {
         
