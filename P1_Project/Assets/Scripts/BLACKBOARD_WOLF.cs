@@ -12,6 +12,8 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     public float maxEatingTime = 0.3f;
     public float eatingRadius = 2f;
     public float digestionRadius = 3f;
+    public GameObject hidingSpot;
+    public GameObject cave; 
     
     void Start()
     {

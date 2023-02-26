@@ -28,6 +28,8 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         blackboardWolf = GetComponent<BLACKBOARD_WOLF>();
         arrive = GetComponent<ArrivePlusOA>();
         flee = GetComponent<FleePlusOA>();
+        cave = blackboardWolf.cave;
+        hidingSpot = blackboardWolf.hidingSpot;
 
 
         base.OnEnter(); // do not remove
@@ -76,15 +78,18 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         State Eating = new State("Eating",
 
-          () => { },
-          () => { eatingTime += Time.deltaTime; },
-          () => { eatingTime = 0f; }
+          () => {  eatingTime = 0f;},
+          () => {
+              sheep.transform.parent = transform;
+              eatingTime += Time.deltaTime; },
+          () => { }
 
           );
 
         State GoingToHidingSpot = new State("GoingToHidingSpot",
 
           () => {
+              Destroy(sheep);
               arrive.target = hidingSpot;
               arrive.enabled = true;
           },
@@ -139,6 +144,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         Transition GoToDigestion = new Transition("GoToDigestion",
            () => {
+             
                return full && (eatingTime > blackboardWolf.maxEatingTime);
            }
        );
