@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304348476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.85, y: -4.23, z: 0}
+  m_LocalPosition: {x: -8.74, y: -4.79, z: 0}
   m_LocalScale: {x: 1.7891, y: 1.7891, z: 1.7891}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -284,7 +284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407903065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.92, y: -0.32, z: 0}
+  m_LocalPosition: {x: 9.15, y: 0.19, z: 0}
   m_LocalScale: {x: 1.901025, y: 2.5347, z: 0.8449}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,12 +369,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636907400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.29, y: -0.0028, z: 0}
-  m_LocalScale: {x: 0.2973747, y: 11.273466, z: 1}
+  m_LocalPosition: {x: 16.9983, y: -0.0028, z: 0}
+  m_LocalScale: {x: 5.8726, y: 16.881351, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &636907403
 BoxCollider2D:
@@ -443,7 +443,7 @@ MonoBehaviour:
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 1
+  closeEnoughRadius: 2
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -456,7 +456,7 @@ MonoBehaviour:
   coneOfVisionAngle: 360
   applyVision: 1
   cohesionWeight: 0.3
-  repulsionWeight: 0.5
+  repulsionWeight: 5.9
   alignmentWeight: 0.2
   addWanderIfZero: 1
   wanderRate: 30
@@ -464,7 +464,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 0
   wanderTargetOrientation: 0
-  seekWeight: 0.01
+  seekWeight: 0.4
   lookAheadLength: 2.3
   avoidDistance: 0.8
   secondaryWhiskerAngle: 12.1
@@ -506,8 +506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dogDetectionRadius: 20
-  wolfDetectionRadius: 1
-  wolfFarAwayRadius: 15
+  wolfDetectionRadius: 2
+  wolfFarAwayRadius: 5
 --- !u!212 &710489726
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 0
-  attractor: {fileID: 0}
+  attractor: {fileID: 1078793797}
 --- !u!114 &710489729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 4
-  target: {fileID: 0}
+  target: {fileID: 1774231596}
 --- !u!1 &735530808
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +690,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &735530811
 MonoBehaviour:
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
-  wolfFarAwayRadius: 15
+  wolfFarAwayRadius: 5
 --- !u!114 &735530812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 1
+  closeEnoughRadius: 2
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -754,7 +754,7 @@ MonoBehaviour:
   coneOfVisionAngle: 360
   applyVision: 1
   cohesionWeight: 0.3
-  repulsionWeight: 0.5
+  repulsionWeight: 5.9
   alignmentWeight: 0.2
   addWanderIfZero: 1
   wanderRate: 30
@@ -762,7 +762,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 0
   wanderTargetOrientation: 0
-  seekWeight: 0.01
+  seekWeight: 0.4
   lookAheadLength: 2.3
   avoidDistance: 0.8
   secondaryWhiskerAngle: 12.1
@@ -789,7 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 0
-  attractor: {fileID: 0}
+  attractor: {fileID: 1078793797}
 --- !u!114 &735530817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,13 +797,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735530808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d558b30f63d7314f83661a2ff80b68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 4
-  target: {fileID: 0}
+  target: {fileID: 1774231596}
 --- !u!1 &745396448
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ MonoBehaviour:
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 1
+  closeEnoughRadius: 2
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -858,7 +858,7 @@ MonoBehaviour:
   coneOfVisionAngle: 360
   applyVision: 1
   cohesionWeight: 0.3
-  repulsionWeight: 0.5
+  repulsionWeight: 5.9
   alignmentWeight: 0.2
   addWanderIfZero: 1
   wanderRate: 30
@@ -866,7 +866,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 0
   wanderTargetOrientation: 0
-  seekWeight: 0.01
+  seekWeight: 0.4
   lookAheadLength: 2.3
   avoidDistance: 0.8
   secondaryWhiskerAngle: 12.1
@@ -909,7 +909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
-  wolfFarAwayRadius: 15
+  wolfFarAwayRadius: 5
 --- !u!212 &745396454
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 0
-  attractor: {fileID: 0}
+  attractor: {fileID: 1078793797}
 --- !u!114 &745396457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,13 +998,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745396448}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d558b30f63d7314f83661a2ff80b68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 4
-  target: {fileID: 0}
+  target: {fileID: 1774231596}
 --- !u!1 &837606321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,12 +1083,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837606321}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.42, y: -0.0028, z: 0}
-  m_LocalScale: {x: 0.2973747, y: 11.400135, z: 1}
+  m_LocalPosition: {x: -15.3694, y: -0.0028, z: 0}
+  m_LocalScale: {x: 2.9812238, y: 17.071032, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &837606324
 BoxCollider2D:
@@ -1169,7 +1169,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.77
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1376,7 +1376,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 1
   wanderTargetOrientation: 0
-  seekWeight: 0.2
+  seekWeight: 0.02
   lookAheadLength: 3.3
   avoidDistance: 1.7
   secondaryWhiskerAngle: 4.71
@@ -1433,7 +1433,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1401445721
 GameObject:
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 1
+  closeEnoughRadius: 2
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -1489,7 +1489,7 @@ MonoBehaviour:
   coneOfVisionAngle: 360
   applyVision: 1
   cohesionWeight: 0.3
-  repulsionWeight: 0.5
+  repulsionWeight: 5.9
   alignmentWeight: 0.2
   addWanderIfZero: 1
   wanderRate: 30
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 0
   wanderTargetOrientation: 0
-  seekWeight: 0.01
+  seekWeight: 0.4
   lookAheadLength: 2.3
   avoidDistance: 0.8
   secondaryWhiskerAngle: 12.1
@@ -1540,7 +1540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
-  wolfFarAwayRadius: 15
+  wolfFarAwayRadius: 5
 --- !u!212 &1401445727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1621,7 +1621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 0
-  attractor: {fileID: 0}
+  attractor: {fileID: 1078793797}
 --- !u!114 &1401445730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1629,13 +1629,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401445721}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d558b30f63d7314f83661a2ff80b68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 4
-  target: {fileID: 0}
+  target: {fileID: 1774231596}
 --- !u!1 &1422442332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,12 +1714,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422442332}
   m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
-  m_LocalPosition: {x: -0.2172, y: 5.4641, z: 0}
-  m_LocalScale: {x: 0.16563118, y: 19.048286, z: 1}
+  m_LocalPosition: {x: -0.1394, y: 9.6555, z: 0}
+  m_LocalScale: {x: 3.1900213, y: 28.906013, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!61 &1422442335
 BoxCollider2D:
@@ -1825,12 +1825,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447780426}
   m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
-  m_LocalPosition: {x: -0.2172, y: -5.34, z: 0}
-  m_LocalScale: {x: 0.16563118, y: 19.048286, z: 1}
+  m_LocalPosition: {x: -0.1394, y: -9.0537, z: 0}
+  m_LocalScale: {x: 2.3642042, y: 28.906013, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!61 &1447780429
 BoxCollider2D:
@@ -1899,7 +1899,7 @@ MonoBehaviour:
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 1
+  closeEnoughRadius: 2
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -1912,7 +1912,7 @@ MonoBehaviour:
   coneOfVisionAngle: 360
   applyVision: 1
   cohesionWeight: 0.3
-  repulsionWeight: 0.5
+  repulsionWeight: 5.9
   alignmentWeight: 0.2
   addWanderIfZero: 1
   wanderRate: 30
@@ -1920,7 +1920,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 0
   wanderTargetOrientation: 0
-  seekWeight: 0.01
+  seekWeight: 0.4
   lookAheadLength: 2.3
   avoidDistance: 0.8
   secondaryWhiskerAngle: 12.1
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
-  wolfFarAwayRadius: 15
+  wolfFarAwayRadius: 5
 --- !u!212 &1654261891
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2052,7 +2052,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654261885}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d558b30f63d7314f83661a2ff80b68b, type: 3}
   m_Name: 
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 1
+  closeEnoughRadius: 2
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -2113,7 +2113,7 @@ MonoBehaviour:
   coneOfVisionAngle: 360
   applyVision: 1
   cohesionWeight: 0.3
-  repulsionWeight: 0.5
+  repulsionWeight: 5.9
   alignmentWeight: 0.2
   addWanderIfZero: 1
   wanderRate: 30
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   wanderOffset: 10
   showWanderGizmos: 0
   wanderTargetOrientation: 0
-  seekWeight: 0.01
+  seekWeight: 0.4
   lookAheadLength: 2.3
   avoidDistance: 0.8
   secondaryWhiskerAngle: 12.1
@@ -2164,7 +2164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
-  wolfFarAwayRadius: 15
+  wolfFarAwayRadius: 5
 --- !u!212 &1748060492
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2245,7 +2245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 0
-  attractor: {fileID: 0}
+  attractor: {fileID: 1078793797}
 --- !u!114 &1748060495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,13 +2253,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748060486}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d558b30f63d7314f83661a2ff80b68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 4
-  target: {fileID: 0}
+  target: {fileID: 1774231596}
 --- !u!1 &1774231596
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,7 +2341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774231596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.81, y: -4.16, z: 0}
+  m_LocalPosition: {x: -8.75, y: -4.58, z: 0}
   m_LocalScale: {x: 0.21840635, y: 0.21840635, z: 0.21840635}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2390,13 +2390,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 40
-  maxSpeed: 10
+  maxSpeed: 4.2
   clipVelocity: 1
   maxAngularAcceleration: 360
   maxAngularSpeed: 90
   clipAngularSpeed: 1
   timeToDesiredSpeed: 0.1
-  closeEnoughRadius: 2
+  closeEnoughRadius: 0.6
   slowdownRadius: 5
   timeToDesiredAngularSpeed: 0.1
   closeEnoughAngle: 2
@@ -2418,11 +2418,11 @@ MonoBehaviour:
   showWanderGizmos: 0
   wanderTargetOrientation: 0
   seekWeight: 0.2
-  lookAheadLength: 10
-  avoidDistance: 12
-  secondaryWhiskerAngle: 30
+  lookAheadLength: 3.3
+  avoidDistance: 1.7
+  secondaryWhiskerAngle: 4.71
   secondaryWhiskerRatio: 0.7
-  perseveranceTime: 0
+  perseveranceTime: 0.5
   showAvoidanceGizmos: 0
   perseveranceElapsed: 0
   persevering: 0
@@ -2445,10 +2445,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRestingTime: 8
   maxHidingTime: 3
-  sheepDetectingRadius: 10
+  sheepDetectingRadius: 7
   maxEatingTime: 0.3
-  eatingRadius: 1.5
-  digestionRadius: 3
+  eatingRadius: 0.8
+  digestionRadius: 0.8
+  restingRadius: 0.8
   hidingSpot: {fileID: 407903065}
   cave: {fileID: 304348476}
 --- !u!1 &1859672054
@@ -2528,10 +2529,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859672054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.41, y: 4.54, z: 0}
+  m_LocalPosition: {x: 6.77, y: 7.21, z: 0}
   m_LocalScale: {x: 0.51386, y: 0.51386, z: 0.51386}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

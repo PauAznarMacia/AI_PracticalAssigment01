@@ -10,8 +10,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
      * For instance: steering behaviours, blackboard, ...*/
 
     private BLACKBOARD_WOLF blackboardWolf;
-    private ArrivePlusOA arrive;
-    private FleePlusOA flee;
+    private ArrivePlusOA arrive; 
     private float restingTime;
     private float hidingTime;
     private float eatingTime;
@@ -26,8 +25,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          * It's equivalent to the on enter action of any state 
          * Usually this code includes .GetComponent<...> invocations */
         blackboardWolf = GetComponent<BLACKBOARD_WOLF>();
-        arrive = GetComponent<ArrivePlusOA>();
-        flee = GetComponent<FleePlusOA>();
+        arrive = GetComponent<ArrivePlusOA>(); 
         cave = blackboardWolf.cave;
         hidingSpot = blackboardWolf.hidingSpot;
 
@@ -60,9 +58,9 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         State Resting = new State("Resting",
  
-            () => { },  
+            () => { full = false; sheep = null; },  
             () => { restingTime += Time.deltaTime; },  
-            () => { restingTime = 0; }
+            () => { restingTime = 0;  }
 
             );
 
@@ -72,24 +70,27 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
                arrive.target = sheep;
                arrive.enabled = true; },
            () => { },
-           () => { arrive.enabled = false; }
+           () => {sheep.transform.parent = transform; arrive.enabled = false; }
 
            );
 
         State Eating = new State("Eating",
 
-          () => {  eatingTime = 0f;},
+          () => {  eatingTime = 0f; },
           () => {
-              sheep.transform.parent = transform;
-              eatingTime += Time.deltaTime; },
-          () => { }
+              
+              eatingTime += Time.deltaTime;
+              if (eatingTime >= blackboardWolf.maxEatingTime) full = true;
+              Debug.Log(eatingTime);
+          },
+          () => { Destroy(sheep);  }
 
           );
 
         State GoingToHidingSpot = new State("GoingToHidingSpot",
 
           () => {
-              Destroy(sheep);
+              
               arrive.target = hidingSpot;
               arrive.enabled = true;
           },
@@ -101,9 +102,9 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         State HidingInSpot = new State("HidingInSpot",
 
-            () => { },
+            () => { hidingTime = 0; },
             () => { hidingTime += Time.deltaTime; },
-            () => { hidingTime = 0; }
+            () => {  }
 
             );
 
@@ -132,7 +133,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         Transition StartHunting = new Transition("Start Hunting",
            () => {
                sheep = SensingUtils.FindInstanceWithinRadius(gameObject, "SHEEP", blackboardWolf.sheepDetectingRadius);
-               return sheep != null;
+               return sheep != null && full == false;
            }
        );
 
@@ -157,10 +158,15 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         Transition GoToRest = new Transition("GoToRest",
           () => {
-              return hidingTime> blackboardWolf.maxHidingTime;
+              return hidingTime > blackboardWolf.maxHidingTime;
           }
       );
 
+        Transition StartResting = new Transition("StartResting",
+         () => {
+             return SensingUtils.DistanceToTarget(gameObject, cave) < blackboardWolf.restingRadius;
+         }
+     );
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
@@ -175,8 +181,8 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         AddTransition(Hunting, StartEating, Eating);
         AddTransition(Eating, GoToDigestion, GoingToHidingSpot);
         AddTransition(GoingToHidingSpot, StartDigestion, HidingInSpot);
-        AddTransition(HidingInSpot, GoToRest, Resting);
-
+        AddTransition(HidingInSpot, GoToRest, GoingToCave);
+        AddTransition(GoingToCave, StartResting , Resting);
         /* STAGE 4: set the initial state
          
         initialState = ... 
