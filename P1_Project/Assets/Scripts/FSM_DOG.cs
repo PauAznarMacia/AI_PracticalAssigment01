@@ -15,6 +15,7 @@ public class FSM_DOG : FiniteStateMachine
     private GameObject PowerUp;
     private float chasingTime;
     private float eatingTime;
+    private bool canScareWolf;
 
     public override void OnEnter()
     {
@@ -75,6 +76,7 @@ public class FSM_DOG : FiniteStateMachine
            () => { eatingTime += Time.deltaTime; },
            () => { eatingTime = 0;
                    PowerUp.SetActive(false);
+                   canScareWolf = true;
            }
        );
 
@@ -82,13 +84,17 @@ public class FSM_DOG : FiniteStateMachine
 
             () =>
             {
+                wolf.tag = "WOLF SCARED"; 
+                chasingTime = 0;
                 arrive.target = wolf;
                 arrive.enabled = true;
             },
            () => { chasingTime += Time.deltaTime; },
            () => {
-               chasingTime = 0;
-               arrive.enabled = false; }
+             
+               arrive.enabled = false;
+               canScareWolf = false;
+           }
 
             );
 
@@ -115,8 +121,8 @@ public class FSM_DOG : FiniteStateMachine
         Transition GoToScaringWolf = new Transition("GoToScaringWolf",
             () =>
             {
-                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF", blackboardDog.wolfDetectionRadius);
-                return PowerUp && (SensingUtils.DistanceToTarget(gameObject, wolf) < blackboardDog.wolfDetectionRadius);
+                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF HUNTING", blackboardDog.wolfDetectionRadius);
+                return canScareWolf  && (SensingUtils.DistanceToTarget(gameObject, wolf) < blackboardDog.wolfDetectionRadius);
             }
 
             );
@@ -157,6 +163,8 @@ public class FSM_DOG : FiniteStateMachine
             }
 
             );
+
+        
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------

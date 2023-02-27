@@ -12,10 +12,17 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     public float maxEatingTime =  3f;
     public float eatingRadius = 2f;
     public float digestionRadius = 3f;
-    public float restingRadius = 2f; 
+    public float restingRadius = 2f;
+    public float escapingRadius = 5f;
+    public float boneRadius = 2f;
+    public float maxTimeWithBone = 3f;
     public GameObject hidingSpot;
-    public GameObject cave; 
-    
+    public GameObject cave;
+    public GameObject bone;
+
+    public bool fear = false;
+     
+
     void Start()
     {
         
@@ -24,6 +31,8 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (gameObject.tag == "WOLF SCARED") fear = true;
+
     }
 }

@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CAVE
+  - HIDING SPOT
+  - SHEEP
+  - DOG
+  - POWER UP
+  - WOLF RESTING
+  - WOLF HUNTING
+  - WOLF HIDING
+  - BONE
+  - 'WOLF SCARED '
   layers:
   - Default
   - TransparentFX

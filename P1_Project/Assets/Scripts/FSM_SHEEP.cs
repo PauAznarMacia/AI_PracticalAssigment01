@@ -72,7 +72,7 @@ public class FSM_SHEEP : FiniteStateMachine
 
         Transition wolfNearby = new Transition("Wolf Nearby",
             () => {
-                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF", blackboardSheep.wolfDetectionRadius);
+                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF HUNTING", blackboardSheep.wolfDetectionRadius);
                 return wolf != null;
             }
         );
