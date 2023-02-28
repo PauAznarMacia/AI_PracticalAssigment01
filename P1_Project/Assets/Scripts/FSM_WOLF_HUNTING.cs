@@ -81,7 +81,6 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
               
               eatingTime += Time.deltaTime;
               if (eatingTime >= blackboardWolf.maxEatingTime) full = true;
-              Debug.Log(eatingTime);
           },
           () => { Destroy(sheep);  }
 
