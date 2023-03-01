@@ -11,11 +11,14 @@ public class SceneController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (GameObject.Find("PowerUp(Clone)"))
+
+            if (GameObject.Find("POWER UP"))
             {
-                Destroy(GameObject.Find("PowerUp(Clone)"));
+                Destroy(GameObject.Find("POWER UP"));
             }
-            Instantiate(powerUp, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,1)), Quaternion.identity);
+            GameObject newPowerUp = (GameObject)Instantiate(powerUp, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1)), Quaternion.identity); //Instantiating Viking2.
+            newPowerUp.name = "POWER UP";
+
         }
     }
 }
