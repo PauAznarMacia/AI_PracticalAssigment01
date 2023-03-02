@@ -95,8 +95,9 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
 
         State GoingToRest = new State("GoingToRest",
          () => {
-            arrive.target = blackboardWolf.cave;
+             arrive.target = blackboardWolf.cave;
              arrive.enabled = true;
+             //gameObject.tag = "WOLF RESTING";
          }, // write on enter logic inside {}
          () => { }, // write in state logic inside {}
          () => { arrive.enabled = false; }  // write on exit logic inisde {}  
@@ -104,8 +105,9 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
 
         State NotScaredAnymore = new State("NotScaredAnymore",
          () => {
-             gameObject.tag = "WOLF RESTING";
+             //gameObject.tag = "WOLF RESTING";
              blackboardWolf.fear = false;
+             gameObject.tag = "WOLF HUNTING";
          },  
          () => { },  
          () => {   }   

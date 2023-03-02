@@ -63,16 +63,13 @@ public class FSM_DOG : FiniteStateMachine
            {
                arrive.target = PowerUp;
                arrive.enabled = true;
-          
            },
            () => { },
            () => { arrive.enabled = false; }
        );
 
         State EatingPowerUp = new State("Eating_PowerUp",
-           () =>
-           { 
-           },
+           () =>{ },
            () => { eatingTime += Time.deltaTime; },
            () => { eatingTime = 0;
                    PowerUp.SetActive(false);
@@ -84,7 +81,8 @@ public class FSM_DOG : FiniteStateMachine
 
             () =>
             {
-                wolf.tag = "WOLF SCARED"; 
+                //wolf.tag = "WOLF SCARED"; 
+                gameObject.tag = "BEAST";
                 chasingTime = 0;
                 arrive.target = wolf;
                 arrive.enabled = true;
@@ -94,6 +92,7 @@ public class FSM_DOG : FiniteStateMachine
              
                arrive.enabled = false;
                canScareWolf = false;
+               gameObject.tag = "DOG";
            }
 
             );
@@ -110,13 +109,18 @@ public class FSM_DOG : FiniteStateMachine
         );
 
         */
-        Transition PowerUpNear = new Transition("PowerUpNear",
+        /*Transition PowerUpNear = new Transition("PowerUpNear",
             () =>
             {
                 PowerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius); 
                 return PowerUp != null && (SensingUtils.DistanceToTarget(gameObject,PowerUp)< blackboardDog.powerUpDetectionRadius);
             }
-   );
+
+   );*/
+        Transition nearbyPowerUp = new Transition("nearbyPowerUp",
+            () => { return SensingUtils.DistanceToTarget(gameObject, PowerUp) < blackboardDog.powerUpDetectionRadius; },
+            () => { }
+        );
 
         Transition GoToScaringWolf = new Transition("GoToScaringWolf",
             () =>
@@ -175,7 +179,8 @@ public class FSM_DOG : FiniteStateMachine
 
          */
         AddStates(Wandering, ReachingPowerUp, EatingPowerUp, ScaringWolf);
-        AddTransition(Wandering, PowerUpNear, ReachingPowerUp);
+
+        AddTransition(Wandering, nearbyPowerUp, ReachingPowerUp);
         AddTransition(ReachingPowerUp, PowerUpReached , EatingPowerUp);
         AddTransition(EatingPowerUp, EatingTimeOver, Wandering);
         AddTransition(Wandering, GoToScaringWolf, ScaringWolf);

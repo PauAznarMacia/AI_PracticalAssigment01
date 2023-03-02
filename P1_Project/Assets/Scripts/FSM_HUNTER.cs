@@ -91,7 +91,7 @@ public class FSM_HUNTER : FiniteStateMachine
             () =>
             {
 
-                wolf.tag = "WOLF RESTING";
+                wolf.tag = "WOLF HUNTING";
                 wolf.GetComponent<FleePlusOA>().enabled = false;
                 wolf.GetComponent<FleePlusOA>().target = dog;
                 wanderAround.enabled = true;

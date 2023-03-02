@@ -11,6 +11,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
     private BLACKBOARD_WOLF blackboardWolf;
     private ArrivePlusOA arrive; 
+    private FleePlusOA flee;
     private float restingTime;
     private float hidingTime;
     private float eatingTime;
@@ -18,6 +19,8 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
     private GameObject sheep;
     private GameObject cave;
     private GameObject hidingSpot;
+    private Color normalColor;
+    private GameObject peril;
 
     public override void OnEnter()
     {
@@ -26,9 +29,10 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          * Usually this code includes .GetComponent<...> invocations */
         blackboardWolf = GetComponent<BLACKBOARD_WOLF>();
         arrive = GetComponent<ArrivePlusOA>(); 
+        flee = GetComponent<FleePlusOA>();
         cave = blackboardWolf.cave;
         hidingSpot = blackboardWolf.hidingSpot;
-
+        normalColor = GetComponent<SpriteRenderer>().color;
 
         base.OnEnter(); // do not remove
     }
@@ -39,6 +43,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          * It's equivalent to the on exit action of any state 
          * Usually this code turns off behaviours that shouldn't be on when one the FSM has
          * been exited. */
+        GetComponent<SpriteRenderer>().color = normalColor;
         base.DisableAllSteerings();
         base.OnExit();
     }
@@ -68,7 +73,8 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
            () => {
                arrive.target = sheep;
-               arrive.enabled = true; },
+               arrive.enabled = true; 
+               gameObject.tag = "WOLF HUNTING";},
            () => { },
            () => {sheep.transform.parent = transform; arrive.enabled = false; }
 
@@ -81,8 +87,11 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
               
               eatingTime += Time.deltaTime;
               if (eatingTime >= blackboardWolf.maxEatingTime) full = true;
+              
           },
-          () => { Destroy(sheep);  }
+          () => { /*Destroy(sheep)*/ sheep.transform.parent = gameObject.transform;
+
+          }  
 
           );
 
@@ -103,7 +112,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
             () => { hidingTime = 0; },
             () => { hidingTime += Time.deltaTime; },
-            () => {  }
+            () => { Destroy(sheep); }
 
             );
 
@@ -117,6 +126,17 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          () => { arrive.enabled = false; }
 
          );
+
+        State Scaping = new State("Scaping",
+         () => { flee.target = peril; 
+         flee.enabled = true;
+         GetComponent<SpriteRenderer>().color = new Color(3f/256, 120f/256, 7f/256);
+         },
+         () => { ; },
+         () => {flee.enabled = false; 
+         GetComponent<SpriteRenderer>().color = normalColor;}
+
+        );
 
 
 
@@ -167,6 +187,13 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          }
      );
 
+     Transition ScapingDog = new Transition("ScapingDog",
+         () => {
+             peril = SensingUtils.FindInstanceWithinRadius(gameObject, "BEAST", blackboardWolf.escapingRadius);
+             return SensingUtils.DistanceToTarget(gameObject, peril) < blackboardWolf.escapingRadius;
+         }
+     );
+
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
             
@@ -175,13 +202,16 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         AddTransition(sourceState, transition, destinationState);
 
          */
-        AddStates(Resting, Hunting, Eating, GoingToHidingSpot, HidingInSpot, GoingToCave);
+        AddStates(Resting, Hunting, Eating, GoingToHidingSpot, HidingInSpot, GoingToCave, Scaping);
         AddTransition(Resting, StartHunting, Hunting);
         AddTransition(Hunting, StartEating, Eating);
         AddTransition(Eating, GoToDigestion, GoingToHidingSpot);
         AddTransition(GoingToHidingSpot, StartDigestion, HidingInSpot);
         AddTransition(HidingInSpot, GoToRest, GoingToCave);
         AddTransition(GoingToCave, StartResting , Resting);
+        AddTransition(Hunting, ScapingDog, Scaping);
+        AddTransition(Scaping, ScapingDog, GoingToCave);
+
         /* STAGE 4: set the initial state
          
         initialState = ... 
