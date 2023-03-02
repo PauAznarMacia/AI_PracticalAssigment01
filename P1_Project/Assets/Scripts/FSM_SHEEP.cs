@@ -38,11 +38,8 @@ public class FSM_SHEEP : FiniteStateMachine
 
         State walkAround = new State("WalkAround",
             () => {
-                Debug.Log("holi2");
               
                 flockingAround.attractor = dog;
-
-                Debug.Log(dog != null);
 
                 flockingAround.enabled = true;
             },

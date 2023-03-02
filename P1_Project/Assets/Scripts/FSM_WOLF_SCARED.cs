@@ -15,7 +15,7 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
     private float hidingTime;
     private float timeWithBone;
     private GameObject dog;
-     
+
 
     public override void OnEnter()
     {
@@ -59,7 +59,6 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
            () => { }, // write in state logic inside {}
            () => { flee.enabled = false; }  // write on exit logic inisde {}  
        );
-
         State WolfHiding = new State("WolfHiding",
          () => {
              arrive.target = blackboardWolf.hidingSpot;
