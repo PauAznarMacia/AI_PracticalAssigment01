@@ -19,8 +19,8 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
     private GameObject sheep;
     private GameObject cave;
     private GameObject hidingSpot;
-    private Color normalColor;
     private GameObject peril;
+    private Color normalColor;
 
     public override void OnEnter()
     {

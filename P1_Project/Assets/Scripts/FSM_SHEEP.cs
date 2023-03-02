@@ -6,7 +6,6 @@ using Steerings;
 public class FSM_SHEEP : FiniteStateMachine
 {
     private BLACKBOARD_SHEEP blackboardSheep;
-    private BLACKBOARD_WOLF blackboardWolf;
     private FlockingAroundPlusAvoidance flockingAround;
     private FleePlusOA flee;
     private GameObject wolf;
@@ -17,7 +16,6 @@ public class FSM_SHEEP : FiniteStateMachine
     public override void OnEnter()
     {
         blackboardSheep = GetComponent<BLACKBOARD_SHEEP>();
-        blackboardWolf = GetComponent<BLACKBOARD_WOLF>();
         flockingAround = GetComponent<FlockingAroundPlusAvoidance>();
         flee = GetComponent<FleePlusOA>();
        // steeringContext = GetComponent<SteeringContext>();

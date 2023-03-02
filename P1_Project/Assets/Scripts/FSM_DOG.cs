@@ -10,9 +10,9 @@ public class FSM_DOG : FiniteStateMachine
      * For instance: steering behaviours, blackboard, ...*/
     private BLACKBOARD_DOG blackboardDog;
     private WanderAroundPlusAvoid  wanderAround;
-    private Arrive arrive;
+    private ArrivePlusOA arrive;
     private GameObject wolf;
-    private GameObject PowerUp;
+    private GameObject powerUp;
     private float chasingTime;
     private float eatingTime;
     private bool canScareWolf;
@@ -24,7 +24,7 @@ public class FSM_DOG : FiniteStateMachine
          * Usually this code includes .GetComponent<...> invocations */
         blackboardDog = GetComponent<BLACKBOARD_DOG>();
         wanderAround = GetComponent<WanderAroundPlusAvoid>();
-        arrive = GetComponent<Arrive>();
+        arrive = GetComponent<ArrivePlusOA>();
 
         base.OnEnter(); // do not remove
     }
@@ -59,11 +59,7 @@ public class FSM_DOG : FiniteStateMachine
         );
 
         State ReachingPowerUp = new State("Reaching_PowerUp",
-           () =>
-           {
-               arrive.target = PowerUp;
-               arrive.enabled = true;
-           },
+           () => { arrive.target = powerUp; arrive.enabled = true;},
            () => { },
            () => { arrive.enabled = false; }
        );
@@ -72,7 +68,7 @@ public class FSM_DOG : FiniteStateMachine
            () =>{ },
            () => { eatingTime += Time.deltaTime; },
            () => { eatingTime = 0;
-                   PowerUp.SetActive(false);
+                   powerUp.SetActive(false);
                    canScareWolf = true;
            }
        );
@@ -117,10 +113,21 @@ public class FSM_DOG : FiniteStateMachine
             }
 
    );*/
-        Transition nearbyPowerUp = new Transition("nearbyPowerUp",
-            () => { return SensingUtils.DistanceToTarget(gameObject, PowerUp) < blackboardDog.powerUpDetectionRadius; },
+        Transition powerUpDetected = new Transition("powerUpDetected",
+            () =>
+            {
+                powerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius);
+                return powerUp != null;
+            },
             () => { }
-        );
+            );
+
+        Transition nearbyPowerUp = new Transition("nearbyPowerUp",
+            () => {
+                return SensingUtils.DistanceToTarget(gameObject, powerUp) < blackboardDog.powerUpDetectionRadius; },
+            () => { }
+            
+            );
 
         Transition GoToScaringWolf = new Transition("GoToScaringWolf",
             () =>
@@ -150,13 +157,12 @@ public class FSM_DOG : FiniteStateMachine
            );
 
         Transition PowerUpReached = new Transition("PowerUpReached",
-        () =>
-        {
+            () =>
+            {
 
-            return SensingUtils.DistanceToTarget(gameObject, PowerUp) < blackboardDog.powerUpReachedRadius;
-        }
-
-        );
+                return SensingUtils.DistanceToTarget(gameObject, powerUp) < blackboardDog.powerUpReachedRadius;
+            }
+            );
 
 
         Transition EatingTimeOver = new Transition("EatingTimeOver",
@@ -180,7 +186,7 @@ public class FSM_DOG : FiniteStateMachine
          */
         AddStates(Wandering, ReachingPowerUp, EatingPowerUp, ScaringWolf);
 
-        AddTransition(Wandering, nearbyPowerUp, ReachingPowerUp);
+        AddTransition(Wandering, powerUpDetected, ReachingPowerUp);
         AddTransition(ReachingPowerUp, PowerUpReached , EatingPowerUp);
         AddTransition(EatingPowerUp, EatingTimeOver, Wandering);
         AddTransition(Wandering, GoToScaringWolf, ScaringWolf);
