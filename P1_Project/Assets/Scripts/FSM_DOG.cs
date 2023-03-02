@@ -25,6 +25,7 @@ public class FSM_DOG : FiniteStateMachine
         blackboardDog = GetComponent<BLACKBOARD_DOG>();
         wanderAround = GetComponent<WanderAroundPlusAvoid>();
         arrive = GetComponent<ArrivePlusOA>();
+        powerUp = blackboardDog.powerUp;
 
         base.OnEnter(); // do not remove
     }
@@ -53,7 +54,7 @@ public class FSM_DOG : FiniteStateMachine
          */
 
         State Wandering = new State("Wandering",
-            () => { wanderAround.enabled = true; },
+            () => { wanderAround.enabled = true; powerUp = null; },
             () => { },
             () => { wanderAround.enabled = false; }
         );
@@ -65,7 +66,7 @@ public class FSM_DOG : FiniteStateMachine
        );
 
         State EatingPowerUp = new State("Eating_PowerUp",
-           () =>{ },
+           () => { eatingTime = 0f; },
            () => { eatingTime += Time.deltaTime; },
            () => { eatingTime = 0;
                    powerUp.SetActive(false);
@@ -120,13 +121,6 @@ public class FSM_DOG : FiniteStateMachine
                 return powerUp != null;
             },
             () => { }
-            );
-
-        Transition nearbyPowerUp = new Transition("nearbyPowerUp",
-            () => {
-                return SensingUtils.DistanceToTarget(gameObject, powerUp) < blackboardDog.powerUpDetectionRadius; },
-            () => { }
-            
             );
 
         Transition GoToScaringWolf = new Transition("GoToScaringWolf",

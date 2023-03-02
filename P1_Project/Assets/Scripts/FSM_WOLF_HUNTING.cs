@@ -187,7 +187,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          }
      );
 
-     Transition ScapingDog = new Transition("ScapingDog",
+        Transition ScapingDog = new Transition("ScapingDog",
          () => {
              peril = SensingUtils.FindInstanceWithinRadius(gameObject, "BEAST", blackboardWolf.escapingRadius);
              return SensingUtils.DistanceToTarget(gameObject, peril) < blackboardWolf.escapingRadius;
