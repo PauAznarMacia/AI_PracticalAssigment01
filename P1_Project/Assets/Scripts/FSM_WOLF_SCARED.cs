@@ -142,7 +142,7 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
      );
 
         Transition GoingToCave = new Transition("GoingToCave",
-        () => { Debug.Log("goingtoc"); return timeWithBone >= blackboardWolf.maxTimeWithBone; }
+        () => { return timeWithBone >= blackboardWolf.maxTimeWithBone; }
      );
 
         Transition CaveReached = new Transition("CaveReached",

@@ -7098,7 +7098,7 @@ MonoBehaviour:
   cave: {fileID: 304348476}
   bone: {fileID: 1521680150}
   dog: {fileID: 1078793797}
-  fear: 1
+  fear: 0
 --- !u!114 &1774231603
 MonoBehaviour:
   m_ObjectHideFlags: 0

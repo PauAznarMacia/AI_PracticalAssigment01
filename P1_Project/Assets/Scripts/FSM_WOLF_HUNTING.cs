@@ -101,6 +101,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
               
               arrive.target = hidingSpot;
               arrive.enabled = true;
+              sheep.gameObject.GetComponent<FleePlusOA>().enabled = false;
           },
           () => { },
           () => { arrive.enabled = false; }

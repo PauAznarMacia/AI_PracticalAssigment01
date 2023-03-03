@@ -128,6 +128,10 @@ public class FSM_DOG : FiniteStateMachine
             () =>
             {
                 wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF HUNTING", blackboardDog.wolfDetectionRadius);
+                if (wolf == null)
+                {
+                    return false;
+                }
                 return canScareWolf  && (SensingUtils.DistanceToTarget(gameObject, wolf) < blackboardDog.wolfDetectionRadius);
             }
 
