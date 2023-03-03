@@ -13,7 +13,7 @@ TagManager:
   - WOLF HUNTING
   - WOLF HIDING
   - BONE
-  - 'WOLF SCARED '
+  - BEAST
   layers:
   - Default
   - TransparentFX
