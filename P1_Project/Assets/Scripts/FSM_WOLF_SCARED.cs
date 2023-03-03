@@ -52,6 +52,10 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         );
 
          */
+        
+        
+        //FiniteStateMachine Hunting = ScriptableObject.CreateInstance<FSM_WOLF_HUNTING>();
+
         State WolfEscaping = new State("WolfEscaping",
            () => {
                flee.target = dog;
@@ -154,7 +158,8 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         AddTransition(sourceState, transition, destinationState);
  
          */
-        AddStates(WolfEscaping, WolfHiding, WolfHidingFromDog, GoingToBone, PlayingWithBone, GoingToRest);
+        AddStates(/*Hunting ,*/ WolfEscaping, WolfHiding, WolfHidingFromDog, GoingToBone, PlayingWithBone, GoingToRest);
+        //AddTransition(Hunting, GoingToHide, WolfHiding);
         AddTransition(WolfEscaping, GoingToHide, WolfHiding);
         AddTransition(WolfHiding, HidingSpotReached, WolfHidingFromDog);
         AddTransition(WolfHidingFromDog,GoingToBones, GoingToBone);
@@ -170,7 +175,7 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         initialState = ... 
 
          */
-
+        //initialState = Hunting
         initialState = WolfEscaping;
     }
 }
