@@ -10,14 +10,16 @@ public class FSM_SHEEP : FiniteStateMachine
     private FleePlusOA flee;
     private GameObject wolf;
     private GameObject dog;
-   // private SteeringContext steeringContext;
-   // private float normalSpeed;
+    private GameObject pen;
+    // private SteeringContext steeringContext;
+    // private float normalSpeed;
 
     public override void OnEnter()
     {
         blackboardSheep = GetComponent<BLACKBOARD_SHEEP>();
         flockingAround = GetComponent<FlockingAroundPlusAvoidance>();
         flee = GetComponent<FleePlusOA>();
+        pen = GameObject.Find("PEN");
        // steeringContext = GetComponent<SteeringContext>();
        // normalSpeed = steeringContext.maxSpeed;
 
@@ -60,6 +62,16 @@ public class FSM_SHEEP : FiniteStateMachine
             () => { flee.enabled = false; }
         );
 
+        State ArrivedToPen = new State("ArrivedToPen",
+            () => {
+                Debug.Log("tic a casa");
+                //gameObject.SetActive(false);
+                Destroy(gameObject);
+            },
+            () => { },
+            () => {  }
+        );
+        
         /*State caught = new State("Caught",
             () => { flockingAround.enabled=false;
             flee.enabled = false;},
@@ -93,22 +105,33 @@ public class FSM_SHEEP : FiniteStateMachine
             }
         );
 
-      /* Transition sheepCaught = new Transition("Sheep Caught",
-            () => {                                       
-                 
-                return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardWolf.caughtRadius;
+        Transition ArrivingToPen = new Transition("ArrivingToPen",
+            () =>
+            {
+                return SensingUtils.DistanceToTarget(gameObject, pen) < blackboardSheep.penDistanceToSafety;
             }
-        ); 
-        */
+
+            );
+
+        /* Transition sheepCaught = new Transition("Sheep Caught",
+              () => {                                       
+
+                  return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardWolf.caughtRadius;
+              }
+          ); 
+          */
 
         // STAGE 3: add states and transitions to the FSM 
 
-        AddStates(LookingForDog,walkAround, runAway);
+        AddStates(LookingForDog,walkAround, runAway, ArrivedToPen);
 
         AddTransition(LookingForDog, wolfNearby, runAway);
         AddTransition(LookingForDog, dogNearby, walkAround);
         AddTransition(walkAround, wolfNearby, runAway);
         AddTransition(runAway, wolfFarAway, walkAround);
+
+        AddTransition(walkAround, ArrivingToPen, ArrivedToPen);
+
         //AddTransition(runAway, sheepCaught, caught);
 
         // STAGE 4: set the initial state
