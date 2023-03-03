@@ -60,7 +60,8 @@ public class FSM_DOG : FiniteStateMachine
         );
 
         State ReachingPowerUp = new State("Reaching_PowerUp",
-           () => { arrive.target = powerUp; arrive.enabled = true;},
+           () => { arrive.target = powerUp; 
+                    arrive.enabled = true;},
            () => { },
            () => { arrive.enabled = false; }
        );
@@ -83,12 +84,14 @@ public class FSM_DOG : FiniteStateMachine
                 chasingTime = 0;
                 arrive.target = wolf;
                 arrive.enabled = true;
+                blackboardDog.dogAngry.SetActive(true);
             },
            () => { chasingTime += Time.deltaTime; },
            () => {
              
                arrive.enabled = false;
                canScareWolf = false;
+               blackboardDog.dogAngry.SetActive(false);
                gameObject.tag = "DOG";
            }
 

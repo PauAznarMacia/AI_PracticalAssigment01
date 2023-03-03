@@ -15,6 +15,7 @@ public class BLACKBOARD_DOG : MonoBehaviour
     public GameObject pen;
     public float sheepDetectionRadius = 2f;
     public bool guidingSheep;
+    public GameObject dogAngry;
 
     void Start()
     {
