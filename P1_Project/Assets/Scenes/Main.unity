@@ -272,7 +272,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &111333500
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -474,7 +473,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &118211417
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -676,7 +674,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &183083128
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1024,7 +1021,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &277406872
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1226,7 +1222,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &289387821
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1512,7 +1507,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &320222245
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1919,7 +1913,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &442038846
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2154,7 +2147,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &608889868
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2356,7 +2348,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &622530829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2558,7 +2549,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &622830898
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2836,7 +2826,7 @@ Transform:
   m_Children:
   - {fileID: 461420730}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &710489720
 GameObject:
@@ -2944,7 +2934,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &710489726
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3144,7 +3133,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!114 &735530812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3348,7 +3336,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &745396454
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3593,7 +3580,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &755587610
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3906,7 +3892,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &880142539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4192,7 +4177,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1063388039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4245,90 +4229,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1071061937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1071061939}
-  - component: {fileID: 1071061938}
-  m_Layer: 0
-  m_Name: PEN
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1071061938
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071061937}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9339b8ac0d642944fb672d62168f9bdd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1071061939
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071061937}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.53, y: -3.82, z: -0.07728868}
-  m_LocalScale: {x: 1.5722, y: 1.5068, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1078793797
 GameObject:
   m_ObjectHideFlags: 0
@@ -4452,9 +4352,6 @@ MonoBehaviour:
   maxEatingTime: 3
   powerUpReachedRadius: 2
   powerUp: {fileID: 707107579139549750, guid: 3678c0a40247c8e408c02bca0385fa3e, type: 3}
-  pen: {fileID: 1071061937}
-  sheepDetectionRadius: 2
-  guidingSheep: 0
   dogAngry: {fileID: 642618844}
 --- !u!114 &1078793804
 MonoBehaviour:
@@ -4718,7 +4615,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1279023105
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4920,7 +4816,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1357376924
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5079,7 +4974,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1401445727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5546,7 +5440,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1455614827
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5748,7 +5641,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1476545241
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5950,7 +5842,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1515473047
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6236,7 +6127,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1562573573
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6469,7 +6359,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1647763232
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6628,7 +6517,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1654261891
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6830,7 +6718,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1748060492
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7289,7 +7176,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1826057358
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7424,7 +7310,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957175642
 GameObject:
@@ -7575,7 +7461,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &1957175649
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7777,7 +7662,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &2031328326
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8026,7 +7910,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &2096298163
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8228,7 +8111,6 @@ MonoBehaviour:
   dogDetectionRadius: 20
   wolfDetectionRadius: 2
   wolfFarAwayRadius: 5
-  penDistanceToSafety: 2
 --- !u!212 &2118785280
 SpriteRenderer:
   m_ObjectHideFlags: 0

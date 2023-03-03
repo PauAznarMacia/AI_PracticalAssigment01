@@ -96,16 +96,6 @@ public class FSM_DOG : FiniteStateMachine
            }
 
             );
-
-        State GoingToPen = new State("GoingToPen",
-            () => { 
-                Debug.Log("al corral");
-                arrive.target = blackboardDog.pen;
-                arrive.enabled = true;
-            },
-            () => { },
-            () => { arrive.enabled = false; wanderAround.enabled = true; }
-        );
         
 
         /* STAGE 2: create the transitions with their logic(s)
@@ -179,37 +169,7 @@ public class FSM_DOG : FiniteStateMachine
 
             );
 
-        Transition GuidingSheep = new Transition("GuidingSheep",
-            () =>
-            {
-                
-                if (SensingUtils.FindInstanceWithinRadius(gameObject, "SHEEP", blackboardDog.sheepDetectionRadius))
-                {
-                    blackboardDog.guidingSheep = true;
-                }
-                Debug.Log(blackboardDog.guidingSheep);
-                return blackboardDog.guidingSheep;
-            }
 
-            );
-        Transition BackToWander = new Transition("BackToWander",
-            () =>
-            {
-
-                if (SensingUtils.FindInstanceWithinRadius(gameObject, "SHEEP", blackboardDog.sheepDetectionRadius))
-                {
-                    blackboardDog.guidingSheep = true;
-                }
-                else
-                {
-                    blackboardDog.guidingSheep = false;
-
-                }
-                Debug.Log(blackboardDog.guidingSheep);
-                return !blackboardDog.guidingSheep;
-            }
-
-            );
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
             
@@ -218,7 +178,7 @@ public class FSM_DOG : FiniteStateMachine
         AddTransition(sourceState, transition, destinationState);
 
          */
-        AddStates(Wandering, ReachingPowerUp, EatingPowerUp, ScaringWolf, GoingToPen);
+        AddStates(Wandering, ReachingPowerUp, EatingPowerUp, ScaringWolf);
 
         AddTransition(Wandering, powerUpDetected, ReachingPowerUp);
         AddTransition(ReachingPowerUp, PowerUpReached , EatingPowerUp);
@@ -226,9 +186,6 @@ public class FSM_DOG : FiniteStateMachine
         AddTransition(Wandering, GoToScaringWolf, ScaringWolf);
         AddTransition(ScaringWolf, ChasingTimeOver, Wandering);
         AddTransition(ScaringWolf, WolfScared, Wandering);
-
-        AddTransition(Wandering, GuidingSheep, GoingToPen);
-        AddTransition(GoingToPen, BackToWander, Wandering);
 
 
         /* STAGE 4: set the initial state

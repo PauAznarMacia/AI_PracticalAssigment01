@@ -12,9 +12,6 @@ public class BLACKBOARD_DOG : MonoBehaviour
     public float maxEatingTime = 3f;
     public float powerUpReachedRadius = 0.5f;
     public GameObject powerUp;
-    public GameObject pen;
-    public float sheepDetectionRadius = 2f;
-    public bool guidingSheep;
     public GameObject dogAngry;
 
     void Start()

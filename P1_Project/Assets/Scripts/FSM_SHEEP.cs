@@ -19,7 +19,6 @@ public class FSM_SHEEP : FiniteStateMachine
         blackboardSheep = GetComponent<BLACKBOARD_SHEEP>();
         flockingAround = GetComponent<FlockingAroundPlusAvoidance>();
         flee = GetComponent<FleePlusOA>();
-        pen = GameObject.Find("PEN");
        // steeringContext = GetComponent<SteeringContext>();
        // normalSpeed = steeringContext.maxSpeed;
 
@@ -61,16 +60,6 @@ public class FSM_SHEEP : FiniteStateMachine
             () => { },
             () => { flee.enabled = false; }
         );
-
-        State ArrivedToPen = new State("ArrivedToPen",
-            () => {
-                Debug.Log("tic a casa");
-                //gameObject.SetActive(false);
-                Destroy(gameObject);
-            },
-            () => { },
-            () => {  }
-        );
         
         /*State caught = new State("Caught",
             () => { flockingAround.enabled=false;
@@ -105,13 +94,6 @@ public class FSM_SHEEP : FiniteStateMachine
             }
         );
 
-        Transition ArrivingToPen = new Transition("ArrivingToPen",
-            () =>
-            {
-                return SensingUtils.DistanceToTarget(gameObject, pen) < blackboardSheep.penDistanceToSafety;
-            }
-
-            );
 
         /* Transition sheepCaught = new Transition("Sheep Caught",
               () => {                                       
@@ -123,14 +105,13 @@ public class FSM_SHEEP : FiniteStateMachine
 
         // STAGE 3: add states and transitions to the FSM 
 
-        AddStates(LookingForDog,walkAround, runAway, ArrivedToPen);
+        AddStates(LookingForDog,walkAround, runAway);
 
         AddTransition(LookingForDog, wolfNearby, runAway);
         AddTransition(LookingForDog, dogNearby, walkAround);
         AddTransition(walkAround, wolfNearby, runAway);
         AddTransition(runAway, wolfFarAway, walkAround);
 
-        AddTransition(walkAround, ArrivingToPen, ArrivedToPen);
 
         //AddTransition(runAway, sheepCaught, caught);
 
