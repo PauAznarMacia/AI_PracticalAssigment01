@@ -6,6 +6,7 @@ public class SceneController : MonoBehaviour
 {
     public GameObject powerUp;
     public GameObject hunter;
+    public BLACKBOARD_DOG blackboardDog;
 
     // Update is called once per frame
     void Update()
@@ -17,9 +18,9 @@ public class SceneController : MonoBehaviour
             {
                 Destroy(GameObject.Find("POWER UP"));
             }
+
             GameObject newPowerUp = (GameObject)Instantiate(powerUp, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1)), Quaternion.identity); 
             newPowerUp.name = "POWER UP";
-
         }
         /*
         if (Input.GetKeyDown(KeyCode.Mouse1))

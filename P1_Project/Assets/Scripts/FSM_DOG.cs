@@ -25,7 +25,7 @@ public class FSM_DOG : FiniteStateMachine
         blackboardDog = GetComponent<BLACKBOARD_DOG>();
         wanderAround = GetComponent<WanderAroundPlusAvoid>();
         arrive = GetComponent<ArrivePlusOA>();
-        powerUp = blackboardDog.powerUp;
+       // powerUp = blackboardDog.powerUp;
 
         base.OnEnter(); // do not remove
     }
@@ -54,7 +54,7 @@ public class FSM_DOG : FiniteStateMachine
          */
 
         State Wandering = new State("Wandering",
-            () => { wanderAround.enabled = true; powerUp = null; },
+            () => { wanderAround.enabled = true; /*powerUp = null;*/ },
             () => { },
             () => { wanderAround.enabled = false; }
         );
