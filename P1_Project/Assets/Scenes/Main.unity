@@ -5995,7 +5995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1521680151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6999,7 +6999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823459bfcabf59e4bbb7d30c1033e0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fsm: {fileID: 11400000, guid: f6da6310f3f8dd14dbcdc3cb9bb67443, type: 2}
+  fsm: {fileID: 11400000, guid: 22b5003a388ae774ea40f0d51f477362, type: 2}
   currentState: 
   textMesh: {fileID: 0}
 --- !u!114 &1774231600
@@ -7082,7 +7082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f85e8834c0d7b479ce5c49e140a295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRestingTime: 8
+  maxRestingTime: 2
   maxBeastDetectionRadius: 5
   maxHidingTime: 3
   sheepDetectingRadius: 10
@@ -7093,11 +7093,12 @@ MonoBehaviour:
   restingRadius: 0.8
   escapingRadius: 5
   boneRadius: 2
-  maxTimeWithBone: 3
+  maxTimeWithBone: 2
   hidingSpot: {fileID: 407903065}
   cave: {fileID: 304348476}
   bone: {fileID: 1521680150}
-  fear: 0
+  dog: {fileID: 1078793797}
+  fear: 1
 --- !u!114 &1774231603
 MonoBehaviour:
   m_ObjectHideFlags: 0

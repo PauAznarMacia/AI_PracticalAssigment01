@@ -2,6 +2,7 @@ using FSMs;
 using UnityEngine;
 using Steerings;
 
+
 [CreateAssetMenu(fileName = "FSM_WOLF_LIFE", menuName = "Finite State Machines/FSM_WOLF_LIFE", order = 1)]
 public class FSM_WOLF_LIFE : FiniteStateMachine
 {
@@ -41,7 +42,9 @@ public class FSM_WOLF_LIFE : FiniteStateMachine
          */
 
      Transition NotScared = new Transition("NotScared",
-              () => { return blackboard.fear == false; }
+              () => { return blackboard.fear == false;
+                 // return SensingUtils.DistanceToTarget(gameObject, blackboard.dog) < blackboard.escapingRadius;
+              }
           ); 
 
          Transition Scared = new Transition("Scared",

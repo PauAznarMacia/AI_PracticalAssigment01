@@ -154,45 +154,45 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
                sheep = SensingUtils.FindInstanceWithinRadius(gameObject, "SHEEP", blackboardWolf.sheepDetectingRadius);
                return sheep != null && full == false;
            }
-       );
+        );
 
         Transition StartEating = new Transition("Start Eating",
            () => {
              return SensingUtils.DistanceToTarget(gameObject, sheep) < blackboardWolf.eatingRadius;
            }
-       );
+        );
 
         Transition GoToDigestion = new Transition("GoToDigestion",
            () => {
              
                return full && (eatingTime > blackboardWolf.maxEatingTime);
            }
-       );
+        );
 
         Transition StartDigestion = new Transition("StartDigestion",
            () => {
                return SensingUtils.DistanceToTarget(gameObject, hidingSpot) < blackboardWolf.digestionRadius;
            }
-       );
+        );
 
         Transition GoToRest = new Transition("GoToRest",
           () => {
               return hidingTime > blackboardWolf.maxHidingTime;
           }
-      );
+        );
 
         Transition StartResting = new Transition("StartResting",
          () => {
              return SensingUtils.DistanceToTarget(gameObject, cave) < blackboardWolf.restingRadius;
          }
-     );
-
+        );
+        /*
         Transition ScapingDog = new Transition("ScapingDog",
          () => {
-             peril = SensingUtils.FindInstanceWithinRadius(gameObject, "BEAST", blackboardWolf.escapingRadius);
+           //  peril = SensingUtils.FindInstanceWithinRadius(gameObject, "BEAST", blackboardWolf.escapingRadius);
              return SensingUtils.DistanceToTarget(gameObject, peril) < blackboardWolf.escapingRadius;
          }
-     );
+        );*/
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
@@ -209,8 +209,9 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         AddTransition(GoingToHidingSpot, StartDigestion, HidingInSpot);
         AddTransition(HidingInSpot, GoToRest, GoingToCave);
         AddTransition(GoingToCave, StartResting , Resting);
+        /*
         AddTransition(Hunting, ScapingDog, Scaping);
-        AddTransition(Scaping, ScapingDog, GoingToCave);
+        AddTransition(Scaping, ScapingDog, GoingToCave);*/
 
         /* STAGE 4: set the initial state
          

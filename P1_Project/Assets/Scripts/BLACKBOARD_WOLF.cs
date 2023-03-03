@@ -21,6 +21,7 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     public GameObject hidingSpot;
     public GameObject cave;
     public GameObject bone;
+    public GameObject dog;
 
     public bool fear = false;
      
