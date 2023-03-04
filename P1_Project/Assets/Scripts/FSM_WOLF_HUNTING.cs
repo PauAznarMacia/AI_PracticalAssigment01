@@ -63,7 +63,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         State Resting = new State("Resting",
  
-            () => { full = false; sheep = null; },  
+            () => { full = false; sheep = null; gameObject.tag = "WOLF RESTING"; },  
             () => { restingTime += Time.deltaTime; },  
             () => { restingTime = 0;  }
 
@@ -98,7 +98,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         State GoingToHidingSpot = new State("GoingToHidingSpot",
 
           () => {
-              
+              gameObject.tag = "WOLF HIDING";
               arrive.target = hidingSpot;
               arrive.enabled = true;
               sheep.gameObject.GetComponent<FleePlusOA>().enabled = false;
@@ -128,7 +128,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
          );
 
-        State Scaping = new State("Scaping",
+        State Scaping = new State("Scaping", //Este estado sobra 
          () => { flee.target = peril; 
          flee.enabled = true;
          GetComponent<SpriteRenderer>().color = new Color(3f/256, 120f/256, 7f/256);

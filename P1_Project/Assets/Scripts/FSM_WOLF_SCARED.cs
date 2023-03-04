@@ -52,13 +52,23 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         );
 
          */
-        
-        
+
+
         //FiniteStateMachine Hunting = ScriptableObject.CreateInstance<FSM_WOLF_HUNTING>();
+
+        State InitState = new State("InitState",
+           () => {
+               blackboardWolf.fear = true;
+
+           }, // write on enter logic inside {}
+           () => { }, // write in state logic inside {}
+           () => {   }  // write on exit logic inisde {}  
+       );
+
 
         State WolfEscaping = new State("WolfEscaping",
            () => {
-               flee.target = blackboardWolf.dog;
+               flee.target = dog;
                flee.enabled = true;  }, // write on enter logic inside {}
            () => { }, // write in state logic inside {}
            () => { flee.enabled = false; }  // write on exit logic inisde {}  
@@ -93,7 +103,7 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
                  timeWithBone = 0;          
              }, // write on enter logic inside {}
              () => { timeWithBone += Time.deltaTime; }, // write in state logic inside {}
-             () => { arrive.enabled = false; }  // write on exit logic inisde {}  
+             () => {  }  // write on exit logic inisde {}  
          );
 
         State GoingToRest = new State("GoingToRest",
@@ -109,10 +119,10 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         State NotScaredAnymore = new State("NotScaredAnymore",
          () => {
              //gameObject.tag = "WOLF RESTING";
-             //blackboardWolf.fear = false;
-             gameObject.tag = "WOLF HUNTING";
+             blackboardWolf.fear = false;
+             //gameObject.tag = "WOLF HUNTING";
          },  
-         () => { blackboardWolf.fear = false; },  
+         () => { /*blackboardWolf.fear = false;*/ },  
          () => {   }   
      );
 
@@ -125,9 +135,14 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         );
 
         */
+        Transition StartScaping = new Transition("StartScaping",
+         () => { dog = SensingUtils.FindInstanceWithinRadius(gameObject, "BEAST", blackboardWolf.maxBeastDetectionRadius);
+             return dog != null;
+         }
+      );
 
         Transition GoingToHide = new Transition("GoingToHide",
-          () => { return SensingUtils.DistanceToTarget(gameObject, blackboardWolf.dog) > blackboardWolf.escapingRadius; }   
+          () => { return SensingUtils.DistanceToTarget(gameObject,  dog) > blackboardWolf.escapingRadius; }   
        );
 
         Transition HidingSpotReached = new Transition("HidingSpotReached",
@@ -159,8 +174,9 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         AddTransition(sourceState, transition, destinationState);
  
          */
-        AddStates(/*Hunting ,*/ WolfEscaping, WolfHiding, WolfHidingFromDog, GoingToBone, PlayingWithBone, GoingToRest, NotScaredAnymore);
-        //AddTransition(Hunting, GoingToHide, WolfHiding);
+        AddStates( InitState, WolfEscaping, WolfHiding, WolfHidingFromDog, GoingToBone, PlayingWithBone, GoingToRest, NotScaredAnymore);
+
+        AddTransition(InitState, StartScaping, WolfEscaping);
         AddTransition(WolfEscaping, GoingToHide, WolfHiding);
         AddTransition(WolfHiding, HidingSpotReached, WolfHidingFromDog);
         AddTransition(WolfHidingFromDog,GoingToBones, GoingToBone);
@@ -177,6 +193,6 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
 
          */
         //initialState = Hunting
-        initialState = WolfEscaping;
+        initialState = InitState;
     }
 }

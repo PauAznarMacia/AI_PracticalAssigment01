@@ -17,11 +17,11 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     public float restingRadius = 2f;
     public float escapingRadius = 5f;
     public float boneRadius = 2f;
-    public float maxTimeWithBone = 3f;
+    public float maxTimeWithBone = 3f; 
     public GameObject hidingSpot;
     public GameObject cave;
     public GameObject bone;
-    public GameObject dog;
+    //public GameObject dog;
 
     public bool fear = false;
      
@@ -36,6 +36,6 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     {
 
         if (gameObject.tag == "WOLF SCARED") fear = true;
-
+        
     }
 }

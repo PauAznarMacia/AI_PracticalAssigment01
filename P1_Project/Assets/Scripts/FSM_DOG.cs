@@ -54,7 +54,9 @@ public class FSM_DOG : FiniteStateMachine
          */
 
         State Wandering = new State("Wandering",
-            () => { wanderAround.enabled = true; powerUp = null;},
+            () => {
+                gameObject.GetComponent<SteeringContext>().maxSpeed = blackboardDog.normalDogSpeed; 
+                wanderAround.enabled = true; powerUp = null;},
             () => { },
             () => { wanderAround.enabled = false; }
         );
@@ -82,7 +84,7 @@ public class FSM_DOG : FiniteStateMachine
 
             () =>
             {
-                //wolf.tag = "WOLF SCARED"; 
+                gameObject.GetComponent<SteeringContext>().maxSpeed = blackboardDog.powerUpSpeed;
                 gameObject.tag = "BEAST";
                 chasingTime = 0;
                 arrive.target = wolf;
@@ -104,20 +106,9 @@ public class FSM_DOG : FiniteStateMachine
         /* STAGE 2: create the transitions with their logic(s)
          * ---------------------------------------------------
 
-        Transition varName = new Transition("TransitionName",
-            () => { }, // write the condition checkeing code in {}
-            () => { }  // write the on trigger code in {} if any. Remove line if no on trigger action needed
-        );
-
+         
         */
-        /*Transition PowerUpNear = new Transition("PowerUpNear",
-            () =>
-            {
-                PowerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius); 
-                return PowerUp != null && (SensingUtils.DistanceToTarget(gameObject,PowerUp)< blackboardDog.powerUpDetectionRadius);
-            }
-
-   );*/
+         
         Transition powerUpDetected = new Transition("powerUpDetected",
             () =>
             {
@@ -140,10 +131,10 @@ public class FSM_DOG : FiniteStateMachine
             () =>
             {
                 wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF HUNTING", blackboardDog.wolfDetectionRadius);
-                if (wolf == null)
+                if (wolf.tag =="WOLF_HUNTING")
                 {
-                    return false;
-                }
+                    canScareWolf  = true;
+                } 
                 return canScareWolf  && (SensingUtils.DistanceToTarget(gameObject, wolf) < blackboardDog.wolfDetectionRadius);
             }
 
@@ -152,7 +143,6 @@ public class FSM_DOG : FiniteStateMachine
         Transition WolfScared = new Transition("WolfScared",
            () =>
            {
-
                return SensingUtils.DistanceToTarget(gameObject, wolf) > blackboardDog.wolfEscapeRadius;
            }
 
@@ -160,8 +150,7 @@ public class FSM_DOG : FiniteStateMachine
 
         Transition ChasingTimeOver = new Transition("ChasingTimeOver",
            () =>
-           {
-
+           { 
                return chasingTime > blackboardDog.maxChasingTime;
            }
 
@@ -169,8 +158,7 @@ public class FSM_DOG : FiniteStateMachine
 
         Transition PowerUpReached = new Transition("PowerUpReached",
             () =>
-            {
-
+            { 
                 return SensingUtils.DistanceToTarget(gameObject, powerUp) < blackboardDog.powerUpReachedRadius;
             }
             );
@@ -178,8 +166,7 @@ public class FSM_DOG : FiniteStateMachine
 
         Transition EatingTimeOver = new Transition("EatingTimeOver",
             () =>
-            {
-
+            { 
                 return eatingTime > blackboardDog.maxEatingTime;
             }
 
@@ -188,11 +175,7 @@ public class FSM_DOG : FiniteStateMachine
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
-            
-        AddStates(...);
-
-        AddTransition(sourceState, transition, destinationState);
-
+ 
          */
         AddStates(Wandering, ReachingPowerUp, EatingPowerUp, ScaringWolf);
 
@@ -205,9 +188,7 @@ public class FSM_DOG : FiniteStateMachine
 
 
         /* STAGE 4: set the initial state
-         
-        initialState = ... 
-
+ 
          */
         initialState = Wandering;
 

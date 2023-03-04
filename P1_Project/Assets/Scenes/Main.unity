@@ -4341,17 +4341,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078793797}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 104d5d7a99fc8fe4a9ede9e7368499ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpDetectionRadius: 20
-  wolfDetectionRadius: 15
+  wolfDetectionRadius: 12
   wolfEscapeRadius: 18
   maxChasingTime: 5
-  maxEatingTime: 3
+  maxEatingTime: 1.5
   powerUpReachedRadius: 2
+  powerUpSpeed: 2.8
+  normalDogSpeed: 1.4
   powerUp: {fileID: 0}
   dogAngry: {fileID: 642618844}
   reachingPU: 0
@@ -7083,22 +7085,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f85e8834c0d7b479ce5c49e140a295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRestingTime: 2
-  maxBeastDetectionRadius: 5
+  maxRestingTime: 5
+  maxBeastDetectionRadius: 6
   maxHidingTime: 3
-  sheepDetectingRadius: 10
+  sheepDetectingRadius: 8
   maxEatingTime: 0.3
   eatingRadius: 0.8
   caughtRadius: 0.2
   digestionRadius: 0.8
   restingRadius: 0.8
   escapingRadius: 5
-  boneRadius: 2
-  maxTimeWithBone: 2
+  boneRadius: 0.8
+  maxTimeWithBone: 4
   hidingSpot: {fileID: 407903065}
   cave: {fileID: 304348476}
   bone: {fileID: 1521680150}
-  dog: {fileID: 1078793797}
   fear: 0
 --- !u!114 &1774231603
 MonoBehaviour:

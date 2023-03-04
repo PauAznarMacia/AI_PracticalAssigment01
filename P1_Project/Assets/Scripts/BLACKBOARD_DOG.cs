@@ -11,6 +11,8 @@ public class BLACKBOARD_DOG : MonoBehaviour
     public float maxChasingTime = 5f;
     public float maxEatingTime = 3f;
     public float powerUpReachedRadius = 0.5f;
+    public float powerUpSpeed = 2f;
+    public float normalDogSpeed = 2f;
     public GameObject powerUp;
     public GameObject dogAngry;
     public bool reachingPU = false;
