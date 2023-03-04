@@ -45,16 +45,8 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
         /* STAGE 1: create the states with their logic(s)
          *-----------------------------------------------
          
-        State varName = new State("StateName",
-            () => { }, // write on enter logic inside {}
-            () => { }, // write in state logic inside {}
-            () => { }  // write on exit logic inisde {}  
-        );
-
          */
-
-
-        //FiniteStateMachine Hunting = ScriptableObject.CreateInstance<FSM_WOLF_HUNTING>();
+ 
 
         State InitState = new State("InitState",
            () => {
@@ -110,7 +102,7 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
          () => {
              arrive.target = blackboardWolf.cave;
              arrive.enabled = true;
-             //gameObject.tag = "WOLF RESTING";
+            
          }, // write on enter logic inside {}
          () => { }, // write in state logic inside {}
          () => { arrive.enabled = false; }  // write on exit logic inisde {}  
@@ -118,21 +110,17 @@ public class FSM_WOLF_SCARED : FiniteStateMachine
 
         State NotScaredAnymore = new State("NotScaredAnymore",
          () => {
-             //gameObject.tag = "WOLF RESTING";
+            
              blackboardWolf.fear = false;
-             //gameObject.tag = "WOLF HUNTING";
+          
          },  
-         () => { /*blackboardWolf.fear = false;*/ },  
+         () => {   },  
          () => {   }   
      );
 
         /* STAGE 2: create the transitions with their logic(s)
          * ---------------------------------------------------
-
-        Transition varName = new Transition("TransitionName",
-            () => { }, // write the condition checkeing code in {}
-            () => { }  // write the on trigger code in {} if any. Remove line if no on trigger action needed
-        );
+ 
 
         */
         Transition StartScaping = new Transition("StartScaping",

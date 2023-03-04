@@ -10,7 +10,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
      * For instance: steering behaviours, blackboard, ...*/
 
     private BLACKBOARD_WOLF blackboardWolf;
-    private ArrivePlusOA arrive; 
+    private ArrivePlusOA arrive;
     private FleePlusOA flee;
     private float restingTime;
     private float hidingTime;
@@ -28,7 +28,7 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          * It's equivalent to the on enter action of any state 
          * Usually this code includes .GetComponent<...> invocations */
         blackboardWolf = GetComponent<BLACKBOARD_WOLF>();
-        arrive = GetComponent<ArrivePlusOA>(); 
+        arrive = GetComponent<ArrivePlusOA>();
         flee = GetComponent<FleePlusOA>();
         cave = blackboardWolf.cave;
         hidingSpot = blackboardWolf.hidingSpot;
@@ -62,42 +62,48 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          */
 
         State Resting = new State("Resting",
- 
-            () => { full = false; sheep = null; gameObject.tag = "WOLF RESTING"; },  
-            () => { restingTime += Time.deltaTime; },  
-            () => { restingTime = 0;  }
+
+            () => { full = false; sheep = null; gameObject.tag = "WOLF RESTING"; },
+            () => { restingTime += Time.deltaTime; },
+            () => { restingTime = 0; }
 
             );
 
         State Hunting = new State("Hunting",
 
-           () => {
+           () =>
+           {
                arrive.target = sheep;
-               arrive.enabled = true; 
-               gameObject.tag = "WOLF HUNTING";},
+               arrive.enabled = true;
+               gameObject.tag = "WOLF HUNTING";
+           },
            () => { },
-           () => {sheep.transform.parent = transform; arrive.enabled = false; }
+           () => { sheep.transform.parent = transform; arrive.enabled = false; }
 
            );
 
         State Eating = new State("Eating",
 
-          () => {  eatingTime = 0f; },
-          () => {
-              
+          () => { eatingTime = 0f; },
+          () =>
+          {
+
               eatingTime += Time.deltaTime;
               if (eatingTime >= blackboardWolf.maxEatingTime) full = true;
-              
-          },
-          () => { /*Destroy(sheep)*/ sheep.transform.parent = gameObject.transform;
 
-          }  
+          },
+          () =>
+          { /*Destroy(sheep)*/
+              sheep.transform.parent = gameObject.transform;
+
+          }
 
           );
 
         State GoingToHidingSpot = new State("GoingToHidingSpot",
 
-          () => {
+          () =>
+          {
               gameObject.tag = "WOLF HIDING";
               arrive.target = hidingSpot;
               arrive.enabled = true;
@@ -119,7 +125,8 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         State GoingToCave = new State("GoingToCave",
 
-         () => {
+         () =>
+         {
              arrive.target = cave;
              arrive.enabled = true;
          },
@@ -129,13 +136,18 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
          );
 
         State Scaping = new State("Scaping", //Este estado sobra 
-         () => { flee.target = peril; 
-         flee.enabled = true;
-         GetComponent<SpriteRenderer>().color = new Color(3f/256, 120f/256, 7f/256);
+         () =>
+         {
+             flee.target = peril;
+             flee.enabled = true;
+             GetComponent<SpriteRenderer>().color = new Color(3f / 256, 120f / 256, 7f / 256);
          },
-         () => { ; },
-         () => {flee.enabled = false; 
-         GetComponent<SpriteRenderer>().color = normalColor;}
+         () => {; },
+         () =>
+         {
+             flee.enabled = false;
+             GetComponent<SpriteRenderer>().color = normalColor;
+         }
 
         );
 
@@ -143,65 +155,56 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
 
         /* STAGE 2: create the transitions with their logic(s)
          * ---------------------------------------------------
-
-        Transition varName = new Transition("TransitionName",
-            () => { }, // write the condition checkeing code in {}
-            () => { }  // write the on trigger code in {} if any. Remove line if no on trigger action needed
-        );
-
+ 
         */
         Transition StartHunting = new Transition("Start Hunting",
-           () => {
+           () =>
+           {
                sheep = SensingUtils.FindInstanceWithinRadius(gameObject, "SHEEP", blackboardWolf.sheepDetectingRadius);
                return sheep != null && full == false;
            }
         );
 
         Transition StartEating = new Transition("Start Eating",
-           () => {
-             return SensingUtils.DistanceToTarget(gameObject, sheep) < blackboardWolf.eatingRadius;
+           () =>
+           {
+               return SensingUtils.DistanceToTarget(gameObject, sheep) < blackboardWolf.eatingRadius;
            }
         );
 
         Transition GoToDigestion = new Transition("GoToDigestion",
-           () => {
-             
+           () =>
+           {
+
                return full && (eatingTime > blackboardWolf.maxEatingTime);
            }
         );
 
         Transition StartDigestion = new Transition("StartDigestion",
-           () => {
+           () =>
+           {
                return SensingUtils.DistanceToTarget(gameObject, hidingSpot) < blackboardWolf.digestionRadius;
            }
         );
 
         Transition GoToRest = new Transition("GoToRest",
-          () => {
+          () =>
+          {
               return hidingTime > blackboardWolf.maxHidingTime;
           }
         );
 
         Transition StartResting = new Transition("StartResting",
-         () => {
+         () =>
+         {
              return SensingUtils.DistanceToTarget(gameObject, cave) < blackboardWolf.restingRadius;
          }
         );
-        /*
-        Transition ScapingDog = new Transition("ScapingDog",
-         () => {
-           //  peril = SensingUtils.FindInstanceWithinRadius(gameObject, "BEAST", blackboardWolf.escapingRadius);
-             return SensingUtils.DistanceToTarget(gameObject, peril) < blackboardWolf.escapingRadius;
-         }
-        );*/
+
 
         /* STAGE 3: add states and transitions to the FSM 
          * ----------------------------------------------
-            
-        AddStates(...);
-
-        AddTransition(sourceState, transition, destinationState);
-
+     
          */
         AddStates(Resting, Hunting, Eating, GoingToHidingSpot, HidingInSpot, GoingToCave, Scaping);
         AddTransition(Resting, StartHunting, Hunting);
@@ -209,16 +212,11 @@ public class FSM_WOLF_HUNTING : FiniteStateMachine
         AddTransition(Eating, GoToDigestion, GoingToHidingSpot);
         AddTransition(GoingToHidingSpot, StartDigestion, HidingInSpot);
         AddTransition(HidingInSpot, GoToRest, GoingToCave);
-        AddTransition(GoingToCave, StartResting , Resting);
-        /*
-        AddTransition(Hunting, ScapingDog, Scaping);
-        AddTransition(Scaping, ScapingDog, GoingToCave);*/
+        AddTransition(GoingToCave, StartResting, Resting);
+
 
         /* STAGE 4: set the initial state
-         
-        initialState = ... 
-
-         */
+          */
         initialState = Resting;
 
     }

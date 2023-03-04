@@ -21,7 +21,7 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     public GameObject hidingSpot;
     public GameObject cave;
     public GameObject bone;
-    //public GameObject dog;
+   
 
     public bool fear = false;
      
@@ -34,8 +34,7 @@ public class BLACKBOARD_WOLF : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (gameObject.tag == "WOLF SCARED") fear = true;
+         
         
     }
 }
