@@ -4352,8 +4352,9 @@ MonoBehaviour:
   maxChasingTime: 5
   maxEatingTime: 3
   powerUpReachedRadius: 2
-  powerUp: {fileID: 707107579139549750, guid: 3678c0a40247c8e408c02bca0385fa3e, type: 3}
+  powerUp: {fileID: 0}
   dogAngry: {fileID: 642618844}
+  reachingPU: 0
 --- !u!114 &1078793804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7830,7 +7831,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUp: {fileID: 707107579139549750, guid: 3678c0a40247c8e408c02bca0385fa3e, type: 3}
-  hunter: {fileID: 0}
   blackboardDog: {fileID: 1078793801}
 --- !u!4 &2049644617
 Transform:

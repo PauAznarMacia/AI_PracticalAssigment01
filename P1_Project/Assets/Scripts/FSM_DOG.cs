@@ -61,7 +61,9 @@ public class FSM_DOG : FiniteStateMachine
 
         State ReachingPowerUp = new State("Reaching_PowerUp",
            () => { arrive.target = powerUp; 
-                    arrive.enabled = true;},
+                    arrive.enabled = true;
+                    blackboardDog.reachingPU = true;
+           },
            () => { },
            () => { arrive.enabled = false; }
        );
@@ -72,6 +74,7 @@ public class FSM_DOG : FiniteStateMachine
            () => { eatingTime = 0;
                    powerUp.SetActive(false);
                    canScareWolf = true;
+                   blackboardDog.reachingPU = false;
            }
        );
 
@@ -119,6 +122,15 @@ public class FSM_DOG : FiniteStateMachine
             () =>
             {
                 powerUp = SensingUtils.FindInstanceWithinRadius(gameObject, "POWER UP", blackboardDog.powerUpDetectionRadius);
+                if (powerUp != null )
+                {
+                    blackboardDog.reachingPU = true;
+
+                } else
+                {
+                    blackboardDog.reachingPU = false;
+
+                }
                 return powerUp != null;
             },
             () => { }

@@ -13,6 +13,7 @@ public class BLACKBOARD_DOG : MonoBehaviour
     public float powerUpReachedRadius = 0.5f;
     public GameObject powerUp;
     public GameObject dogAngry;
+    public bool reachingPU = false;
 
     void Start()
     {

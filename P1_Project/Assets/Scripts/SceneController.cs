@@ -5,13 +5,15 @@ using UnityEngine;
 public class SceneController : MonoBehaviour
 {
     public GameObject powerUp;
-    public GameObject hunter;
     public BLACKBOARD_DOG blackboardDog;
+    private float timer;
+    private float powerUpCD = 5;
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !blackboardDog.reachingPU)
         {
 
             if (GameObject.Find("POWER UP"))
