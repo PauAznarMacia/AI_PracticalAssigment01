@@ -8,7 +8,6 @@ public class FSM_DOG : FiniteStateMachine
     /* Declare here, as attributes, all the variables that need to be shared among
      * states and transitions and/or set in OnEnter or used in OnExit 
      * For instance: steering behaviours, blackboard, ...*/
-
     private BLACKBOARD_DOG blackboardDog;
     private WanderAroundPlusAvoid  wanderAround;
     private ArrivePlusOA arrive;
@@ -23,11 +22,10 @@ public class FSM_DOG : FiniteStateMachine
         /* Write here the FSM initialization code. This code is execute every time the FSM is entered.
          * It's equivalent to the on enter action of any state 
          * Usually this code includes .GetComponent<...> invocations */
-
         blackboardDog = GetComponent<BLACKBOARD_DOG>();
         wanderAround = GetComponent<WanderAroundPlusAvoid>();
         arrive = GetComponent<ArrivePlusOA>();
-      
+       // powerUp = blackboardDog.powerUp;
 
         base.OnEnter(); // do not remove
     }
@@ -38,7 +36,6 @@ public class FSM_DOG : FiniteStateMachine
          * It's equivalent to the on exit action of any state 
          * Usually this code turns off behaviours that shouldn't be on when one the FSM has
          * been exited. */
-
         base.DisableAllSteerings();
         base.OnExit();
     }
@@ -47,7 +44,13 @@ public class FSM_DOG : FiniteStateMachine
     {
         /* STAGE 1: create the states with their logic(s)
          *-----------------------------------------------
-       
+         
+        State varName = new State("StateName",
+            () => { }, // write on enter logic inside {}
+            () => { }, // write in state logic inside {}
+            () => { }  // write on exit logic inisde {}  
+        );
+
          */
 
         State Wandering = new State("Wandering",
@@ -127,7 +130,7 @@ public class FSM_DOG : FiniteStateMachine
         Transition GoToScaringWolf = new Transition("GoToScaringWolf",
             () =>
             {
-                wolf = SensingUtils.FindInstanceWithinRadius(gameObject, "WOLF HUNTING", blackboardDog.wolfDetectionRadius);
+                wolf = GameObject.Find("WOLF");
                 if (wolf.tag =="WOLF_HUNTING")
                 {
                     canScareWolf  = true;
